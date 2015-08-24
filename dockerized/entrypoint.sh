@@ -45,3 +45,5 @@ ls "$out"
 pdf--smaller "$out" "${out%.pdf}-smaller.pdf"
 pdf--smaller "${out%.pdf}-2x3.pdf" "${out%.pdf}-2x3-smaller.pdf"
 #du -sh "$out" "${out%.pdf}-2x3.pdf" "${out%.pdf}-smaller.pdf" "${out%.pdf}-2x3-smaller.pdf"
+
+cd /custom-data && chown $(stat -c '%u:%g' .) "$out" "${out%.pdf}-2x3.pdf" "${out%.pdf}-smaller.pdf" "${out%.pdf}-2x3-smaller.pdf"
