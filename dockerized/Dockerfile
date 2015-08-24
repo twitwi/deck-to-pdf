@@ -6,13 +6,14 @@ RUN apt-get update && apt-get install -y wget xvfb pdfjam pdftk
 # to get the system dependencies (and firefox itself so we can get the "light" version of slimerjs)
 RUN apt-get install -y firefox unzip zip
 
+# to avoid cups problems with slimerjs (.render() that freezes), we install a cups server locally
+RUN apt-get install -y cups-daemon 
+
 RUN wget --quiet https://github.com/laurentj/slimerjs/archive/master.zip -O master.zip && unzip -q master.zip && rm master.zip
 
 RUN wget --quiet https://github.com/twitwi/decktape/archive/master.zip -O master.zip && unzip -q master.zip && rm master.zip
 
-# to avoid cups problems with slimerjs (.render() that freezes), we install a cups server locally
-RUN apt-get install -y cups-daemon 
-RUN /etc/init.d/cups start 
+RUN apt-get install -y imagemagick
 
 COPY ./entrypoint.sh /decktape-master/decktape.sh
 
